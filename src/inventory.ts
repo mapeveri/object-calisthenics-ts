@@ -1,108 +1,48 @@
-export const inventory: { name: string; price: number; quantity: number }[] =
-  [];
+import { ProductCollection } from "./product-collection";
 
-export function addProduct(
-  name: string,
-  price: number,
-  quantity: number
-): void {
-  if (
-    typeof name === "string" &&
-    typeof price === "number" &&
-    typeof quantity === "number"
-  ) {
-    inventory.push({ name, price, quantity });
-    console.log(`Product "${name}" added to inventory.`);
-  } else {
-    console.log("Invalid product details!");
+export class Inventory {
+  constructor(private _products: ProductCollection) {}
+
+  addProduct(name: string, price: number, quantity: number): void {
+    this._products.add(name, price, quantity);
+  }
+
+  removeProduct(name: string): void {
+    this._products.remove(name);
+  }
+
+  findProduct(name: string): string | undefined {
+    const product = this._products.find(name);
+    if (!product) return;
+
+    return product;
+  }
+
+  getProductsLessThan(quantity: number): string[] {
+    return this._products.getWithQuantityLessThan(quantity);
+  }
+
+  displayInventory(): string[] {
+    console.log("Current Inventory:");
+    return this._products.items();
+  }
+
+  total(): number {
+    return this._products.total();
   }
 }
 
-export function removeProductByName(name: string): void {
-  if (typeof name === "string") {
-    let removed = false;
-    for (let i = 0; i < inventory.length; i++) {
-      if (inventory[i].name === name) {
-        inventory.splice(i, 1);
-        console.log(`Product "${name}" removed from inventory.`);
-        removed = true;
-        break;
-      }
-    }
+const inventory = new Inventory(new ProductCollection());
 
-    if (!removed) {
-      console.log(`Product "${name}" not found in inventory.`);
-    }
-  } else {
-    console.log("Invalid product name!");
-  }
-}
+inventory.addProduct("Laptop", 999.99, 5);
+inventory.addProduct("Phone", 599.99, 10);
+inventory.addProduct("Tablet", 299.99, 8);
 
-export function findProductByName(name: string): void {
-  if (typeof name === "string") {
-    let found = false;
-    for (const product of inventory) {
-      if (product.name === name) {
-        console.log(
-          `Found Product: Name: ${product.name}, Price: ${product.price}, Quantity: ${product.quantity}`
-        );
-        found = true;
-        break;
-      }
-    }
+inventory.removeProduct("Phone");
 
-    if (!found) {
-      console.log(`Product "${name}" not found in inventory.`);
-    }
-  } else {
-    console.log("Invalid product name!");
-  }
-}
+console.log(inventory.findProduct("Laptop"));
+console.log(inventory.findProduct("Phone"));
+console.log(inventory.getProductsLessThan(10));
 
-export function getProductsWithQuantityLessThan(quantity: number): void {
-  if (typeof quantity === "number") {
-    console.log(`Products with quantity less than ${quantity}:`);
-    for (const product of inventory) {
-      if (product.quantity < quantity) {
-        console.log(
-          `Name: ${product.name}, Price: ${product.price}, Quantity: ${product.quantity}`
-        );
-      }
-    }
-  } else {
-    console.log("Invalid quantity!");
-  }
-}
-
-export function getTotalInventoryValue(): number {
-  let totalValue = 0;
-  for (const product of inventory) {
-    totalValue += product.price * product.quantity;
-  }
-  console.log(totalValue);
-  return totalValue;
-}
-
-export function displayInventory(): void {
-  console.log("Current Inventory:");
-  for (const product of inventory) {
-    console.log(
-      `Name: ${product.name}, Price: ${product.price}, Quantity: ${product.quantity}`
-    );
-  }
-}
-
-addProduct("Laptop", 999.99, 5);
-addProduct("Phone", 599.99, 10);
-addProduct("Tablet", 299.99, 8);
-
-removeProductByName("Phone");
-
-findProductByName("Laptop");
-findProductByName("Phone");
-
-getProductsWithQuantityLessThan(10);
-
-getTotalInventoryValue();
-
-displayInventory();
+console.log(inventory.total());
+console.log(inventory.displayInventory());
