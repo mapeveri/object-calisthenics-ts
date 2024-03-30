@@ -6,7 +6,9 @@
   "scripts": {
     "start-legacy": "ts-node legacy/inventory.ts",
     "start": "ts-node src/inventory.ts",
-    "tests": "jest"
+    "tests": "jest",
+    "inventory:tests": "jest --testPathPattern=inventory",
+    "employee:tests": "jest --testPathPattern=employee"
   },
   "author": "",
   "license": "ISC",
