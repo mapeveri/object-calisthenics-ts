@@ -6,17 +6,20 @@ export function addEmployee(
   salary: number,
   department: string
 ): void {
-  const employee = { id, name, salary, department };
   if (employeeExists(id)) {
     console.log("Error! Employee already exists.");
     return;
   }
 
+  const employee = { id, name, salary, department };
   if (department === "Engineering") {
     salary += calculateBonus(salary, 0.1);
-  } else if (department === "HR") {
+  } 
+  
+  if (department === "HR") {
     salary += calculateBonus(salary, 0.2);
   }
+
   employeeData.push(employee);
   console.log("Employee added successfully!");
 }
@@ -47,22 +50,24 @@ export function removeEmployeeById(id: number): void {
     return;
   }
 
-  if (employeeData[index].department !== "Management") {
-    employeeData.splice(index, 1);
-    console.log("Employee removed successfully!");
-  } else {
+  if (employeeData[index].department === "Management") {
     console.log("Error! Cannot remove a management employee.");
+    return;
   }
+
+  employeeData.splice(index, 1);
+  console.log("Employee removed successfully!");
 }
 
 export function updateEmployeeSalary(id: number, newSalary: number): void {
   const employee = findEmployeeById(id);
-  if (employee) {
-    employee.salary = newSalary;
-    console.log("Salary updated successfully!");
-  } else {
+  if (!employee) {
     console.log("Error! Employee not found.");
+    return;
   }
+
+  employee.salary = newSalary;
+  console.log("Salary updated successfully!");
 }
 
 export function getHighestPaidEmployeeByDepartment(department: string): any {
