@@ -50,7 +50,7 @@ describe("calculateTotalSalary", () => {
   });
 
   test("Calculates total salary correctly", () => {
-    expect(calculateTotalSalary()).toBe(7000);
+    expect(calculateTotalSalary()).toBe(8000);
   });
 });
 
@@ -119,7 +119,7 @@ describe("calculateAverageSalaryByDepartment", () => {
   });
 
   test("Calculates the average salary of the department correctly", () => {
-    expect(calculateAverageSalaryByDepartment("Engineering")).toBe(3750);
+    expect(calculateAverageSalaryByDepartment("Engineering")).toBe(4125);
   });
 
   test("Returns 0 if no employees in the department", () => {

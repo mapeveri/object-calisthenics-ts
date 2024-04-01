@@ -13,6 +13,7 @@ export function addEmployee(
     } else if (department === "HR") {
       salary += calculateBonus(salary, 0.2);
     }
+    employee.salary = salary;
     employeeData.push(employee);
     console.log("Employee added successfully!");
   } else {
