@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-legacy": "ts-node legacy/inventory.ts",
-    "start": "ts-node src/inventory.ts",
+    "inventory:start-legacy": "ts-node legacy/inventory.ts",
+    "inventory:start": "ts-node src/inventory/index.ts",
     "employee:start-legacy": "ts-node src/employee/employee.ts",
     "employee:start": "ts-node src/employee/index.ts",
     "tests": "jest",
