@@ -1,126 +1,56 @@
-export let employeeData: any[] = [];
+import { Department } from "./department";
+import { EmployeeId } from "./employee-id";
+import { EmployeeName } from "./employee-name";
+import { EmployeeSalary } from "./employee-salary";
 
-export function addEmployee(
-  id: number,
-  name: string,
-  salary: number,
+export type EmployeePrimitives = {
+  id: number
+  name: string
+  salary: number
   department: string
-): void {
-  if (employeeExists(id)) {
-    console.log("Error! Employee already exists.");
-    return;
+}
+
+export class Employee {
+  private constructor(
+    private _id: EmployeeId,
+    private _name: EmployeeName,
+    private _salary: EmployeeSalary,
+    private _department: Department
+  ) {}
+
+  static of(
+    id: EmployeeId,
+    name: EmployeeName,
+    salary: EmployeeSalary,
+    department: Department
+  ): Employee {
+    const salaryCalculated = salary.calculateBonus(
+      department.getBonusPercentage()
+    );
+
+    console.log("Employee added successfully!");
+
+    return new Employee(id, name, salaryCalculated, department);
   }
 
-  const employee = { id, name, salary, department };
-  if (department === "Engineering") {
-    salary += calculateBonus(salary, 0.1);
-  } 
-  
-  if (department === "HR") {
-    salary += calculateBonus(salary, 0.2);
+  isEqualById(id: EmployeeId): boolean {
+    return this._id.isEqual(id);
   }
 
-  employeeData.push(employee);
-  console.log("Employee added successfully!");
-}
-
-export function employeeExists(id: number): boolean {
-  return employeeData.some((employee) => employee.id === id);
-}
-
-export function calculateBonus(
-  salary: number,
-  bonusPercentage: number
-): number {
-  return salary * bonusPercentage;
-}
-
-export function findEmployeeById(id: number): any {
-  return employeeData.find((employee) => employee.id === id);
-}
-
-export function calculateTotalSalary(): number {
-  return employeeData.reduce((total, employee) => total + employee.salary, 0);
-}
-
-export function removeEmployeeById(id: number): void {
-  const index = employeeData.findIndex((employee) => employee.id === id);
-  if (index === -1) {
-    console.log("Error! Employee not found.");
-    return;
+  isEqualByDepartmentName(name: string): boolean {
+    return this._department.isEqual(name);
   }
 
-  if (employeeData[index].department === "Management") {
-    console.log("Error! Cannot remove a management employee.");
-    return;
+  changeSalary(newSalary: EmployeeSalary): void {
+    this._salary = newSalary;
   }
 
-  employeeData.splice(index, 1);
-  console.log("Employee removed successfully!");
-}
-
-export function updateEmployeeSalary(id: number, newSalary: number): void {
-  const employee = findEmployeeById(id);
-  if (!employee) {
-    console.log("Error! Employee not found.");
-    return;
+  toPrimitives(): EmployeePrimitives {
+    return {
+      id: this._id.value,
+      name: this._name.name,
+      salary: this._salary.amount,
+      department: this._department.name,
+    };
   }
-
-  employee.salary = newSalary;
-  console.log("Salary updated successfully!");
 }
-
-export function getHighestPaidEmployeeByDepartment(department: string): any {
-  let highestSalary = -1;
-  let highestPaidEmployee = null;
-
-  const employeesByDeparment = employeeData.filter(
-    (employee) => employee.department === department
-  );
-  for (const employee of employeesByDeparment) {
-    highestSalary = Math.max(highestSalary, employee.salary);
-    highestPaidEmployee =
-      highestSalary === employee.salary ? employee : highestPaidEmployee;
-  }
-
-  return highestPaidEmployee;
-}
-
-export function calculateAverageSalaryByDepartment(department: string): number {
-  let totalSalary = 0;
-  let count = 0;
-
-  const employeesByDeparment = employeeData.filter(
-    (employee) => employee.department === department
-  );
-  for (const employee of employeesByDeparment) {
-    totalSalary += employee.salary;
-    count++;
-  }
-
-  return count > 0 ? totalSalary / count : 0;
-}
-
-addEmployee(1, "John", 4000, "Engineering");
-addEmployee(2, "Alice", 3000, "HR");
-addEmployee(3, "Bob", 4500, "Management");
-addEmployee(4, "David", 4200, "Engineering");
-addEmployee(5, "Eva", 3200, "HR");
-
-console.log("Employee with ID 1:", findEmployeeById(1));
-console.log("Total salary:", calculateTotalSalary());
-
-updateEmployeeSalary(1, 4500);
-console.log("Updated employee:", findEmployeeById(1));
-
-removeEmployeeById(3);
-console.log("After removing an employee:", employeeData);
-
-console.log(
-  "Highest paid employee in Engineering department:",
-  getHighestPaidEmployeeByDepartment("Engineering")
-);
-console.log(
-  "Average salaries in HR department:",
-  calculateAverageSalaryByDepartment("HR")
-);
