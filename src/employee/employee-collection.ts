@@ -32,7 +32,7 @@ export class EmployeeCollection {
     return employee.toPrimitives();
   }
 
-  findByDeparment(department: Department): EmployeePrimitives[] {
+  findByDepartment(department: Department): EmployeePrimitives[] {
     const employees = this._employees.filter((employee) =>
       employee.isEqualByDepartmentName(department.name)
     );

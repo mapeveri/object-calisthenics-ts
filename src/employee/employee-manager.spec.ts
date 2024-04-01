@@ -92,14 +92,14 @@ describe("EmployeeManager", () => {
 
     test("Returns the highest paid employee of the department", () => {
       expect(
-        employeeManager.getHighestPaidEmployeeByDepartment("Engineering").name
+        employeeManager.getHighestPaidEmployeeByDepartment("Engineering")?.name
       ).toBe("John");
     });
 
     test("Returns null if no employees in the department", () => {
       expect(
         employeeManager.getHighestPaidEmployeeByDepartment("Management")
-      ).toBeNull();
+      ).toBeUndefined();
     });
   });
 

@@ -44,11 +44,13 @@ export class EmployeeManager {
     );
   }
 
-  getHighestPaidEmployeeByDepartment(department: string): any {
+  getHighestPaidEmployeeByDepartment(
+    department: string
+  ): EmployeePrimitives | undefined {
     let highestSalary = -1;
-    let highestPaidEmployee = null;
+    let highestPaidEmployee = undefined;
 
-    const employeesByDeparment = this._employees.findByDeparment(
+    const employeesByDeparment = this._employees.findByDepartment(
       Department.of(department)
     );
 
@@ -65,7 +67,7 @@ export class EmployeeManager {
     let totalSalary = 0;
     let count = 0;
 
-    const employeesByDeparment = this._employees.findByDeparment(
+    const employeesByDeparment = this._employees.findByDepartment(
       Department.of(department)
     );
 
