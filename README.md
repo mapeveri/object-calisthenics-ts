@@ -24,10 +24,16 @@ The idea of this project is to implement the Object calisthenics rules to improv
 10. Use Only One Argument Per Method: Limit methods to no more than one argument. This helps keep methods focused and reduces complexity.
 
 
-## Execute the project
+## Execute the inventory project
 
 ```
- npm run start
+ npm run inventory:start
+```
+
+## Execute the employee project
+
+```
+ npm run employee:start
 ```
 
 ## Execute the tests
