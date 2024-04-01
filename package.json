@@ -6,6 +6,8 @@
   "scripts": {
     "start-legacy": "ts-node legacy/inventory.ts",
     "start": "ts-node src/inventory.ts",
+    "employee:start-legacy": "ts-node src/employee/employee.ts",
+    "employee:start": "ts-node src/employee/index.ts",
     "tests": "jest",
     "inventory:tests": "jest --testPathPattern=inventory",
     "employee:tests": "jest --testPathPattern=employee"
