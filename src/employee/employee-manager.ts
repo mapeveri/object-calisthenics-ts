@@ -62,17 +62,13 @@ export class EmployeeManager {
   }
 
   calculateAverageSalaryByDepartment(department: string): number {
-    let totalSalary = 0;
-    let count = 0;
-
     const employeesByDeparment = this.getEmployeesByDepartment(department);
 
-    for (const employee of employeesByDeparment) {
-      totalSalary += employee.salary;
-      count++;
-    }
-
-    return count > 0 ? totalSalary / count : 0;
+    return (
+      employeesByDeparment.reduce((accumulator, employee) => {
+        return accumulator + employee.salary;
+      }, 0) / (employeesByDeparment.length || 1)
+    );
   }
 
   get items(): EmployeePrimitives[] {
