@@ -9,16 +9,16 @@ export class Product {
     private _quantity: ProductQuantity
   ) {}
 
-  static of(name: string, price: number, quantity: number): Product {
-    return new Product(
-      ProductName.of(name),
-      Price.of(price),
-      ProductQuantity.of(quantity)
-    );
+  static of(
+    name: ProductName,
+    price: Price,
+    quantity: ProductQuantity
+  ): Product {
+    return new Product(name, price, quantity);
   }
 
   isEqual(name: string): boolean {
-    return name === this._name.name;
+    return name === this._name.value;
   }
 
   total(): number {
@@ -30,6 +30,6 @@ export class Product {
   }
 
   toString(): string {
-    return `Name: ${this._name.name}, Price: ${this._price.amount}, Quantity: ${this._quantity.amount}`;
+    return `Name: ${this._name.value}, Price: ${this._price.amount}, Quantity: ${this._quantity.amount}`;
   }
 }

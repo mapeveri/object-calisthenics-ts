@@ -1,11 +1,14 @@
+import { Price } from "./price";
 import { Product } from "./product";
+import { ProductName } from "./product-name";
+import { ProductQuantity } from "./product-quantity";
 
 export class ProductCollection {
   constructor(private _products: Product[] = []) {}
 
-  add(name: string, price: number, quantity: number): void {
+  add(name: ProductName, price: Price, quantity: ProductQuantity): void {
     this._products.push(Product.of(name, price, quantity));
-    console.log(`Product "${name}" added to inventory.`);
+    console.log(`Product "${name.value}" added to inventory.`);
   }
 
   remove(name: string): void {

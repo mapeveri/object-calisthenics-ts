@@ -9,7 +9,7 @@ export class ProductName {
     return new ProductName(name);
   }
 
-  get name(): string {
+  get value(): string {
     return this._name;
   }
 }

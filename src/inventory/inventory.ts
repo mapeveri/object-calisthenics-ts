@@ -1,10 +1,17 @@
+import { Price } from "./price";
 import { ProductCollection } from "./product-collection";
+import { ProductName } from "./product-name";
+import { ProductQuantity } from "./product-quantity";
 
 export class Inventory {
   constructor(private _products: ProductCollection) {}
 
   addProduct(name: string, price: number, quantity: number): void {
-    this._products.add(name, price, quantity);
+    this._products.add(
+      ProductName.of(name),
+      Price.of(price),
+      ProductQuantity.of(quantity)
+    );
   }
 
   removeProduct(name: string): void {
