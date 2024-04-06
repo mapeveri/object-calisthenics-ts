@@ -36,8 +36,20 @@ The idea of this project is to implement the Object calisthenics rules to improv
  npm run employee:start
 ```
 
-## Execute the tests
+## Execute all tests
 
 ```
  npm run tests
+```
+
+## Execute inventory tests
+
+```
+npm run inventory:tests
+```
+
+## Execute employee tests
+
+```
+npm run employee:tests
 ```
