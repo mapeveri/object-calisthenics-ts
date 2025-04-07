@@ -1,6 +1,6 @@
 # Object calisthenics Typescript
 
-The idea of this project is to implement the Object calisthenics rules to improve the code following the 10 rules:
+The idea of this project is to implement the Object Calisthenics rules to improve the code following the 10 rules:
 
 
 1. Only One Level Of Indentation Per Method: Methods should not have more than one level of indentation. This helps keep methods focused and easier to understand.
